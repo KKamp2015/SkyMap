@@ -8,12 +8,14 @@ import matplotlib.pyplot as plt # allows plot to be made
 import numpy as np # allows for conversion between radians and degress and second method to read text in.
 from astroquery.simbad import Simbad
 def ConvRA(RA):
+	RA=RA.strip()
 	RA=RA.split(' ')
-	out=RA[-1]
+	out=float(RA[-1])
 	for i in np.arange(-2,-(len(RA)+1),-1):
 		out/=60
-		out+=RA[i]
+		out+=float(RA[i])
 	out*=15
+	out=float(out)
 	return out
 
 def ConvDec(Dec1):
@@ -25,11 +27,11 @@ def ConvDec(Dec1):
 		out/=60
 		out+=Dec[i]
 	out*=s
+	out=float(out)
 	return out
 	
 
 stars=stars=Simbad.query_criteria("sptypes='K'")
-stars.more()
 #Sets Global parameters 
 plt.rc('axes', axisbelow=True)
 #sets up plot
@@ -57,12 +59,12 @@ x=-x
 
 #making range boxs
 
-ax.scatter(np.radians(x),np.radians(DEC),marker='*',s=1,color='k',label=None)
+ax.scatter(np.radians(x),np.radians(Dec),marker='*',s=1,color='k',label=None)
 
 #relabeling tickmarks to hours
 ax.set_xticklabels(np.array(['10h', '8h','6h','4h', '2h','0h','22h','20h','18h','16h','14h']),color='k')
 
-label="WNMap.jpg"
+label="KMap.jpg"
 plt.savefig(label,format='jpg',dpi=300)
 
 

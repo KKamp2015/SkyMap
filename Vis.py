@@ -61,6 +61,19 @@ x=-x
 
 ax.scatter(np.radians(x),np.radians(Dec),marker='*',s=1,color='k',label=None)
 
+#plotting Glactic Plane
+#creating galactic plane in glatic coordinates
+lon=np.arange(0,360)
+ga=SkyCoord(b=0,l=lon,unit='deg',frame='galactic')
+#transforrming into RA and DEC
+ga=ga.transform_to('icrs')
+#converinting to arrays and prettping RA to be plotted (-180,180) instead of (0,360) and reversing order of RA for plot
+RAGal=ga.ra.wrap_at(180*u.deg).radian
+DECGal=ga.dec.radian
+RAGal=-RAGal
+#plotting  galactic plane
+plt.scatter(RAGal,DECGal,c='red',s=10)
+
 #relabeling tickmarks to hours
 ax.set_xticklabels(np.array(['10h', '8h','6h','4h', '2h','0h','22h','20h','18h','16h','14h']),color='k')
 

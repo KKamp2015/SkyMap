@@ -7,6 +7,8 @@ This code produces a sky map of Be stars using an aitoff projection with include
 import matplotlib.pyplot as plt # allows plot to be made
 import numpy as np # allows for conversion between radians and degress and second method to read text in.
 from astroquery.simbad import Simbad
+from astropy.coordinates import SkyCoord
+import astropy.units as u
 def ConvRA(RA):
 	RA=RA.strip()
 	RA=RA.split(' ')
@@ -59,7 +61,7 @@ x=-x
 
 #making range boxs
 
-ax.scatter(np.radians(x),np.radians(Dec),marker='*',s=1,color='k',label=None)
+ax.scatter(np.radians(x),np.radians(Dec),marker='*',s=1,color='k',label=None,zorder=100)
 
 #plotting Glactic Plane
 #creating galactic plane in glatic coordinates
@@ -72,11 +74,10 @@ RAGal=ga.ra.wrap_at(180*u.deg).radian
 DECGal=ga.dec.radian
 RAGal=-RAGal
 #plotting  galactic plane
-plt.scatter(RAGal,DECGal,c='red',s=10)
+plt.scatter(RAGal,DECGal,c='red',s=10,zorder=1,label="Glactic Plane")
 
 #relabeling tickmarks to hours
 ax.set_xticklabels(np.array(['10h', '8h','6h','4h', '2h','0h','22h','20h','18h','16h','14h']),color='k')
-
 label="KMap.jpg"
 plt.savefig(label,format='jpg',dpi=300)
 

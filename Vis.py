@@ -20,14 +20,15 @@ def ConvRA(RA):
 	out=float(out)
 	return out
 
-def ConvDec(Dec1):
+def ConvDec(Dec):
 	Dec=Dec.split(' ')
-	s=np.sign(Dec[1])
-	Dec[1]=np.abs(Dec[1])
-	out=Dec[-1]
+	s=np.sign(int(Dec[1]))
+	Dec[1]=np.abs(int(Dec[1]))
+	out=float(Dec[-1])
 	for i in np.arange(-2,-(len(Dec)+1),-1):
+		print (np.arange(-2,-(len(Dec)+1),-1))
 		out/=60
-		out+=Dec[i]
+		out+=float(Dec[i])
 	out*=s
 	out=float(out)
 	return out
@@ -47,7 +48,7 @@ K=0
 for i in range(len(stars)):
 	try:
 		ratemp=ConvRA(stars['RA'][i])
-		Dectemp=ConvRA(stars['DEC'][i])
+		Dectemp=ConvDec(stars['DEC'][i])
 		Dec.append(Dectemp)
 		RA.append(ratemp)
 	except:
